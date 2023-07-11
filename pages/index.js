@@ -1,43 +1,84 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
-
+import Image from 'next/image';
 export default function Home() {
   return (
 
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>The Picture of Café au lait</title>
+        <link rel="icon" href="/icon.png" />
       </Head>
 
       <main>
-    
-          <div class="row">
-            <div class="col-md-6">
-              One of three columns
+      <hr/>
+        <Image
+          src="/coffee06.png"
+          width={768}
+          height={432}
+          alt="Picture of the author"
+        />
+
+        <div className = "main_2">
+          <div >
+            <div style={{ marginTop:5}}  className="d-flex justify-content-center"> 
+            <h3>The Picture of Café au lait - After Story Patch</h3>
             </div>
-            <div class="col-md-3">
-              One of three columns
-            </div>
-            <div class="col-md-3">
-              One of three columns
+            <div style={{ marginTop:2}}  className="d-flex justify-content-center">
+              <h4 >(Zipfile Data Size 86 mb.)</h4>
             </div>
           </div>
-     
+          <div className="d-flex justify-content-center">
+          <a href="https://drive.google.com/file/d/1UvKlWf88hJpTk7DyTsjwTM1UE2jczqKn/view">
+            <button style={{ marginTop:2 }} className="btn_2"> Google Drive Download </button>
+          </a>
+          </div>
+          <div style={{ marginTop: 2 }}>
+            <h4>How to Install</h4>
+            <p>Add patch.rpy to "\Steam\steamapps\common\The picture of Cafe au lait\game"</p>
+          </div>
+        </div>
+        <hr />
       </main>
 
       <footer>
         <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+          href="https://www.facebook.com/AstralSeal2023"
           target="_blank"
           rel="noopener noreferrer"
         >
           Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel" className={styles.logo} />
+          <img src="/facebook.png" alt="Vercel" className={styles.logo} />
         </a>
       </footer>
 
       <style jsx>{`
+
+        hr{
+          border-top: 1px solid red !important;
+        }
+        .btn_2{
+          
+            border: none;
+            display: inline-block;
+            margin-left: 10px;
+            padding: 7px 12px;
+            // background-color: #ff5cca;
+            background-color: #D21404;
+            border-radius: 3px;
+            color: #ffffff;
+            font-weight: bold;
+            transition: 0.5s;
+            -mox-transition: 0.5s;
+            -webkit-transition: 0.5s;
+        }
+
+        .main_2 {
+     
+          color:rgb(88,66,60);
+       
+        }
+
         main {
           padding: 5rem 0;
           flex: 1;
