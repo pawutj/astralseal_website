@@ -1,2 +1,1 @@
-# astralseal_website
-astralseal_website React-Vercel
+This is a starter template for [Learn Next.js](https://nextjs.org/learn).
