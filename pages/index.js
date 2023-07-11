@@ -13,9 +13,9 @@ export default function Home() {
       <main>
       <hr/>
         <Image
-          src="/coffee06.png"
-          width={768}
-          height={432}
+          src="/landingpage.png"
+          width={784}
+          height={572}
           alt="Picture of the author"
         />
 
@@ -47,7 +47,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Follow us -{' '}
           <img src="/facebook.png" alt="Vercel" className={styles.logo} />
         </a>
       </footer>
