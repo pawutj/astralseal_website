@@ -3,12 +3,12 @@ import Head from 'next/head';
 import MainContent from '../../components/memary_puzzle/MainContent';
 import TableDecode from '../../components/memary_puzzle/TableDecode';
 import { useState } from 'react';
-
+import TextField from '@mui/material/TextField';
 export default function Home() {
   const defaultKey= "**************************"
   //const defaultKey= "--------------------------"
   const [decodeKey, setDecodeKey] = useState([...defaultKey])
-
+  const [encodePassword , setEncodePassword] = useState("")
 
   const decodeString = s =>{
     const sArray = [...s]
@@ -51,11 +51,19 @@ export default function Home() {
 
     
       <div style={{display :'flex' , justifyContent:'center'}}>
-        <div>
-      <MainContent  encryptedString1 = {encryptedString1}  encryptedString2 =  {encryptedString2} />
-      <br></br>
-      <MainContent  encryptedString1 = {decodeString(encryptedString1)}  encryptedString2 =  {decodeString(encryptedString2)} />
+      <div>
+
+
+        <br></br>
+        <MainContent  encryptedString1 = {encryptedString1}  encryptedString2 =  {encryptedString2}  head ={"Puzzle"} />
+        <br></br>
+        <MainContent  encryptedString1 = {decodeString(encryptedString1)}  encryptedString2 =  {decodeString(encryptedString2)}  head ={"Answer"} />
+        <br></br>
+ 
+        <TextField id="outlined-basic" label="ENCODE" variant="outlined"  value = {encodePassword} onChange={e => setEncodePassword(e.target.value)} style ={{margin:15}}/>
+      <TextField id="outlined-basic"  variant="outlined" disabled={true} value = {decodeString(encodePassword)} style ={{margin:15}}/>
       </div>
+      
       <div>
       <TableDecode decodeKey = {decodeKey}  setDecodeKey = {setDecodeKey} part ={0}/>
     

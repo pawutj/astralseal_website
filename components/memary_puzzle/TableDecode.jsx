@@ -19,7 +19,7 @@ export default function TableDecode({decodeKey , setDecodeKey}) {
     const a_zList = [...a_z]
     let range13 = () => [...Array(13).keys()]
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} style ={{margin:15}}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
 
         <TableBody>
@@ -29,7 +29,7 @@ export default function TableDecode({decodeKey , setDecodeKey}) {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {a_zList[i]}
+                <b>{a_zList[i]}</b>
               </TableCell>
               <TableCell align="right">
                 <input value={decodeKey[i]}
@@ -38,7 +38,7 @@ export default function TableDecode({decodeKey , setDecodeKey}) {
                     onChange= { e => setKey(i,e.target.value)}/>
                 </TableCell>
                 <TableCell component="th" scope="row">
-                {a_zList[i+13]}
+               <b> {a_zList[i+13]}</b>
               </TableCell>
               
               <TableCell align="right">
