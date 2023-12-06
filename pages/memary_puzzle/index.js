@@ -1,10 +1,9 @@
 import Head from 'next/head';
-import Image from 'next/image';
+
 import MainContent from './MainContent';
 import TableDecode from './TableDecode';
 import { useState } from 'react';
-import Paper from '@mui/material/Paper';
-import Stack from '@mui/material/Stack';
+
 export default function Home() {
   const defaultKey= "**************************"
   //const defaultKey= "--------------------------"
@@ -41,7 +40,6 @@ export default function Home() {
   Lgdt wteqdt hghxsqk, gfsn zg rkgh ofzg gwlexkozn. Lgdt vtkt sodoztr zg q lofust exszxkt gk fqzogf.
   Fqdofu egflztssqzogfl qslg itshtr qlzkgfgdtkl qfr fqcouqzgkl ortfzoyn lzqkl dgkt tqlosn.[2]
 `
-const styles ={}
   return (
 
     <div className={styles.container}>
