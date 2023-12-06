@@ -1,7 +1,7 @@
 import Head from 'next/head';
 
-import MainContent from './MainContent';
-import TableDecode from './TableDecode';
+import MainContent from '../../components/memary_puzzle/MainContent';
+import TableDecode from '../../components/memary_puzzle/TableDecode';
 import { useState } from 'react';
 
 export default function Home() {
@@ -42,7 +42,7 @@ export default function Home() {
 `
   return (
 
-    <div className={styles.container}>
+    <div >
       <Head>
         <title>The Picture of Café au lait</title>
         <link rel="icon" href="/icon.png" />
