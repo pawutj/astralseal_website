@@ -153,7 +153,7 @@ export default function Home() {
         }
 
         .fix-size {
-          font-family:'Courier New'
+          font-family: 'Courier Prime', monospace;
         }
       `}</style>
     </div>
