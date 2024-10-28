@@ -26,7 +26,8 @@ export default function Trick() {
                 <h2 style={{
                     color: 'black',
                     marginTop: '20px',
-                    fontSize: '20px'
+                    fontSize: '20px',
+                    fontFamily: 'Menlo, Monaco, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", monospace'
                 }}>
                     ถ้าไม่อยากถูก trick ก็ให้ treat
                 </h2>
