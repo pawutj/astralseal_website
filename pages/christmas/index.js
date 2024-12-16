@@ -2,21 +2,24 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 
 export default function Christmas() {
-
     const router = useRouter();
     const [input, setInput] = useState('');
+    const [showError, setShowError] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (input.trim()) {
-            router.push(`/${input.trim()}`);
+        const trimmedInput = input.trim();
+        
+        if (trimmedInput === 'santa_claus_is_cuming_to_town') {
+            router.push(`/${trimmedInput}`);
+        } else {
+            setShowError(true);
         }
     };
 
-
     return (
         <div style={{
-            background:'black',
+            background: 'black',
             minHeight: '100vh',
             margin: 0,
             padding: 0,
@@ -25,7 +28,6 @@ export default function Christmas() {
         }}>
             <div style={{
                 display: 'flex',
-    
                 alignItems: 'center',
                 minHeight: '100vh',
                 flexDirection: 'column',
@@ -57,9 +59,8 @@ export default function Christmas() {
                         objectFit: 'contain'
                     }}
                 />
-  
 
-  <form 
+                <form 
                     onSubmit={handleSubmit}
                     style={{
                         marginTop: '20px',
@@ -69,10 +70,24 @@ export default function Christmas() {
                         gap: '10px'
                     }}
                 >
+                    {showError && (
+                        <h2 style={{
+                            color: 'red',
+                            marginTop: '20px',
+                            fontSize: '20px',
+                            fontFamily: 'Menlo, Monaco, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", monospace'
+                        }}>
+                            Wrong Answer
+                        </h2>
+                    )}
+
                     <input
                         type="text"
                         value={input}
-                        onChange={(e) => setInput(e.target.value)}
+                        onChange={(e) => {
+                            setInput(e.target.value);
+                            setShowError(false);
+                        }}
                         style={{
                             padding: '10px 15px',
                             fontSize: '16px',
@@ -81,8 +96,7 @@ export default function Christmas() {
                             background: 'black',
                             color: 'white',
                             width: '200px',
-                            outline: 'none',
-                            color:'white'
+                            outline: 'none'
                         }}
                         placeholder="Password"
                     />
@@ -102,8 +116,7 @@ export default function Christmas() {
                         Submit
                     </button>
                 </form>
-
             </div>
         </div>
-    )
-  }
+    );
+}
