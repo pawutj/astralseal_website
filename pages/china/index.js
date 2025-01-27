@@ -33,8 +33,8 @@ export default function Chinas() {
     e.preventDefault();
     const trimmedInput = input.trim();
     
-    if (trimmedInput === 'salapao') {
-        router.push(`/${trimmedInput}`);
+    if (trimmedInput.toLowerCase() === 'salapao') {
+        router.push(`/${trimmedInput.toLowerCase()}`);
     } else {
         setShowError(true);
     }
