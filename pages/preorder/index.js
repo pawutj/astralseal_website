@@ -29,8 +29,8 @@ export default function Preorder() {
               </h2>
 
               <img
-                  src="/nude.png"
-                  alt="Trick"
+                  src="/nude_2.png"
+                  alt="Pre-Order"
                   style={{
                       maxWidth: '100%',
                       width: '400px',
