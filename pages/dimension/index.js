@@ -125,23 +125,23 @@ export default function SpotTheDifference() {
       fontFamily: 'Arial, sans-serif',
       padding: '20px'
     }}>
-      <Head>
+      {/* <Head>
         <title>Spot the Difference - Dimension</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </Head>
+      </Head> */}
 
       <div style={{
         maxWidth: '1200px',
         margin: '0 auto',
         textAlign: 'center'
       }}>
-        <h1 style={{
+        {/* <h1 style={{
           fontSize: isMobile ? '24px' : '32px',
           marginBottom: '20px',
           color: '#4a90e2'
         }}>
           🔍 Spot the Difference
-        </h1>
+        </h1> */}
         
         {/* คำเตือน: ปรับตำแหน่งจุดต่างในไฟล์นี้ให้ตรงกับภาพ image1.png */}
         {/* Coordinates ใช้ระบบ 0.0-1.0 (เปอร์เซ็นต์ของภาพ) */}
@@ -154,19 +154,19 @@ export default function SpotTheDifference() {
           marginBottom: '20px',
           gap: '10px'
         }}>
-          <div style={{ fontSize: isMobile ? '14px' : '16px' }}>
+          {/* <div style={{ fontSize: isMobile ? '14px' : '16px' }}>
             Found: {foundDifferences.length}/3 differences
           </div>
           <div style={{ fontSize: isMobile ? '14px' : '16px' }}>
             Clicks: {clicks}
-          </div>
-          <Link href="/dimension/2" style={{
+          </div> */}
+          {/* <Link href="/dimension/2" style={{
             color: '#4a90e2',
             textDecoration: 'none',
             fontSize: isMobile ? '14px' : '16px'
           }}>
             📖 View Original
-          </Link>
+          </Link> */}
         </div>
 
         {!imageLoaded && (
@@ -192,7 +192,7 @@ export default function SpotTheDifference() {
             }}
           />
         </div>
-
+{/* 
         {gameCompleted && (
           <div style={{
             backgroundColor: '#27ae60',
@@ -206,9 +206,9 @@ export default function SpotTheDifference() {
               You found all 3 differences in {clicks} clicks!
             </p>
           </div>
-        )}
+        )} */}
 
-        <div style={{
+        {/* <div style={{
           display: 'flex',
           flexDirection: isMobile ? 'column' : 'row',
           justifyContent: 'center',
@@ -232,9 +232,9 @@ export default function SpotTheDifference() {
           >
             🔄 Reset Game
           </button>
-        </div>
+        </div> */}
 
-        <div style={{
+        {/* <div style={{
           backgroundColor: 'rgba(255,255,255,0.1)',
           padding: '15px',
           borderRadius: '8px',
@@ -244,7 +244,7 @@ export default function SpotTheDifference() {
           <p style={{ margin: '5px 0' }}>• Click on areas where you think there are differences</p>
           <p style={{ margin: '5px 0' }}>• Find all 3 hidden differences in the image</p>
           <p style={{ margin: '5px 0' }}>• Use fewer clicks for a better score!</p>
-        </div>
+        </div> */}
       </div>
 
       <style jsx>{`
