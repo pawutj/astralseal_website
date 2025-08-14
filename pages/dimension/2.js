@@ -29,7 +29,7 @@ export default function OriginalImage() {
       backgroundColor: '#1a1a2e',
       color: 'white',
       fontFamily: 'Arial, sans-serif',
-      padding: '20px'
+      padding: isMobile ? '10px 5px' : '20px'
     }}>
       <Head>
         <title>Original Image - Dimension</title>
@@ -190,7 +190,13 @@ export default function OriginalImage() {
       <style jsx>{`
         @media (max-width: 768px) {
           img {
-            max-width: calc(100vw - 40px) !important;
+            max-width: calc(100vw - 10px) !important;
+            width: calc(100vw - 10px) !important;
+          }
+          
+          body {
+            padding: 0 !important;
+            margin: 0 !important;
           }
         }
         

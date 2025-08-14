@@ -95,8 +95,8 @@ export default function SpotTheDifference() {
     
     img.onload = () => {
       // ปรับขนาด canvas ให้เหมาะสมกับอุปกรณ์
-      const maxWidth = isMobile ? window.innerWidth - 40 : 800;
-      const maxHeight = isMobile ? window.innerHeight * 0.6 : 600;
+      const maxWidth = isMobile ? window.innerWidth - 10 : 800;
+      const maxHeight = isMobile ? window.innerHeight * 0.7 : 600;
       
       const ratio = Math.min(maxWidth / img.width, maxHeight / img.height);
       const newWidth = img.width * ratio;
@@ -123,12 +123,12 @@ export default function SpotTheDifference() {
       backgroundColor: '#1a1a2e',
       color: 'white',
       fontFamily: 'Arial, sans-serif',
-      padding: '20px'
+      padding: isMobile ? '10px 5px' : '20px'
     }}>
-      {/* <Head>
+      <Head>
         <title>Spot the Difference - Dimension</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </Head> */}
+      </Head>
 
       <div style={{
         maxWidth: '1200px',
@@ -256,7 +256,13 @@ export default function SpotTheDifference() {
         
         @media (max-width: 768px) {
           canvas {
-            max-width: calc(100vw - 40px) !important;
+            max-width: calc(100vw - 10px) !important;
+            width: calc(100vw - 10px) !important;
+          }
+          
+          body {
+            padding: 0 !important;
+            margin: 0 !important;
           }
         }
       `}</style>
