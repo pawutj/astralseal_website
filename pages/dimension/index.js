@@ -13,9 +13,9 @@ export default function SpotTheDifference() {
   // ตำแหน่งของจุดต่าง (3 จุด) - ใช้อัตราส่วนจากภาพ (0.0-1.0)
   // ปรับตำแหน่งเหล่านี้ให้ตรงกับจุดที่แตกต่างในภาพจริง
   const differences = [
-    { id: 1, x: 0.15, y: 0.15, radius: 35, description: "Character detail (upper left)" },
-    { id: 2, x: 0.85, y: 0.15, radius: 30, description: "Background element (upper right)" },
-    { id: 3, x: 0.9, y: 0.85, radius: 25, description: "Lower right detail" }
+    { id: 1, x: 0.2, y: 0.05, radius: 40, description: "Character detail (upper left)" },
+    { id: 2, x: 0.9, y: 0.10, radius: 40, description: "Background element (upper right)" },
+    { id: 3, x: 0.88, y: 0.65, radius: 30, description: "Lower right detail" }
   ];
 
   useEffect(() => {
