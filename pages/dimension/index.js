@@ -184,7 +184,7 @@ export default function SpotTheDifference() {
             ref={canvasRef}
             onClick={handleImageClick}
             style={{
-              border: '2px solid #4a90e2',
+              // border: '2px solid #4a90e2',
               borderRadius: '8px',
               cursor: gameCompleted ? 'default' : 'crosshair',
               maxWidth: '100%',
@@ -192,21 +192,20 @@ export default function SpotTheDifference() {
             }}
           />
         </div>
-{/* 
+
         {gameCompleted && (
           <div style={{
             backgroundColor: '#27ae60',
             padding: '20px',
             borderRadius: '8px',
             marginBottom: '20px',
-            animation: 'pulse 2s infinite'
+            // animation: 'pulse 2s infinite'
           }}>
-            <h2 style={{ margin: '0 0 10px 0' }}>🎉 Congratulations!</h2>
+            <h2 style={{ margin: '0 0 10px 0' }}>Congratulations!</h2>
             <p style={{ margin: '0' }}>
-              You found all 3 differences in {clicks} clicks!
             </p>
           </div>
-        )} */}
+        )}
 
         {/* <div style={{
           display: 'flex',
