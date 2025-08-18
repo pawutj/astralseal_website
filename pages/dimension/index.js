@@ -13,9 +13,9 @@ export default function SpotTheDifference() {
   // ตำแหน่งของจุดต่าง (3 จุด) - ใช้อัตราส่วนจากภาพ (0.0-1.0)
   // ปรับตำแหน่งเหล่านี้ให้ตรงกับจุดที่แตกต่างในภาพจริง
   const differences = [
-    { id: 1, x: 0.2, y: 0.05, radius: 40, description: "Character detail (upper left)" },
-    { id: 2, x: 0.9, y: 0.10, radius: 40, description: "Background element (upper right)" },
-    { id: 3, x: 0.88, y: 0.65, radius: 30, description: "Lower right detail" }
+    { id: 1, x: 0.31, y: 0.28, radius: 25, description: "Character detail (upper left)" },
+    { id: 2, x: 0.70, y: 0.4, radius: 25, description: "Background element (upper right)" },
+    { id: 3, x: 0.75, y: 0.60, radius: 25, description: "Lower right detail" }
   ];
 
   useEffect(() => {
@@ -108,7 +108,7 @@ export default function SpotTheDifference() {
       ctx.drawImage(img, 0, 0, newWidth, newHeight);
       setImageLoaded(true);
     };
-    img.src = '/dimension/image1.png';
+    img.src = '/dimension/image3.PNG';
   };
 
   useEffect(() => {
@@ -120,7 +120,7 @@ export default function SpotTheDifference() {
   return (
     <div style={{
       minHeight: '100vh',
-      backgroundColor: '#1a1a2e',
+      backgroundColor: '#000000',
       color: 'white',
       fontFamily: 'Arial, sans-serif',
       padding: isMobile ? '10px 5px' : '20px'
