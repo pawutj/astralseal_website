@@ -5,10 +5,14 @@ import Link from 'next/link';
 export default function SpotTheDifference() {
   const [foundDifferences, setFoundDifferences] = useState([]);
   const [gameCompleted, setGameCompleted] = useState(false);
+  const [gameStarted, setGameStarted] = useState(true);
+  const [timeLeft, setTimeLeft] = useState(180); // 180 วินาที
+  const [gameOver, setGameOver] = useState(false);
   const [clicks, setClicks] = useState(0);
   const canvasRef = useRef(null);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const timerRef = useRef(null);
 
   // ตำแหน่งของจุดต่าง (3 จุด) - ใช้อัตราส่วนจากภาพ (0.0-1.0)
   // ปรับตำแหน่งเหล่านี้ให้ตรงกับจุดที่แตกต่างในภาพจริง
@@ -17,6 +21,39 @@ export default function SpotTheDifference() {
     { id: 2, x: 0.70, y: 0.4, radius: 25, description: "Background element (upper right)" },
     { id: 3, x: 0.75, y: 0.60, radius: 25, description: "Lower right detail" }
   ];
+
+  // Timer Effect
+  useEffect(() => {
+    if (gameStarted && !gameCompleted && !gameOver && timeLeft > 0) {
+      timerRef.current = setInterval(() => {
+        setTimeLeft(prev => {
+          if (prev <= 1) {
+            setGameOver(true);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    } else {
+      clearInterval(timerRef.current);
+    }
+
+    return () => clearInterval(timerRef.current);
+  }, [gameStarted, gameCompleted, gameOver, timeLeft]);
+
+  // Format time display
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  // Get time color based on remaining time
+  const getTimeColor = () => {
+    if (timeLeft > 60) return '#4a90e2';
+    if (timeLeft > 30) return '#f39c12';
+    return '#e74c3c';
+  };
 
   useEffect(() => {
     // ตรวจสอบว่าเป็น mobile หรือไม่
@@ -31,13 +68,14 @@ export default function SpotTheDifference() {
   }, []);
 
   useEffect(() => {
-    if (foundDifferences.length === differences.length) {
+    if (foundDifferences.length === differences.length && !gameOver) {
       setGameCompleted(true);
+      clearInterval(timerRef.current);
     }
-  }, [foundDifferences]);
+  }, [foundDifferences, gameOver]);
 
   const handleImageClick = (e) => {
-    if (gameCompleted) return;
+    if (gameCompleted || gameOver) return;
 
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
@@ -76,13 +114,27 @@ export default function SpotTheDifference() {
       const actualRadius = (foundDiff.radius / Math.min(canvas.width, canvas.height)) * Math.min(canvas.width, canvas.height);
       ctx.arc(actualX, actualY, actualRadius, 0, 2 * Math.PI);
       ctx.stroke();
+    } else {
+      // หักเวลาเมื่อคลิกผิด (ไม่ให้เวลาติดลบ)
+      setTimeLeft(prev => {
+        const newTime = prev - 30;
+        if (newTime <= 0) {
+          setGameOver(true);
+          return 0;
+        }
+        return newTime;
+      }); 
     }
   };
 
   const resetGame = () => {
     setFoundDifferences([]);
     setGameCompleted(false);
+    setGameOver(false);
+    setGameStarted(true);
+    setTimeLeft(180);
     setClicks(0);
+    clearInterval(timerRef.current);
     
     // ล้างวงกลมที่วาดไว้ โดยวาดภาพใหม่
     drawImage();
@@ -135,38 +187,29 @@ export default function SpotTheDifference() {
         margin: '0 auto',
         textAlign: 'center'
       }}>
-        {/* <h1 style={{
-          fontSize: isMobile ? '24px' : '32px',
-          marginBottom: '20px',
-          color: '#4a90e2'
-        }}>
-          🔍 Spot the Difference
-        </h1> */}
         
-        {/* คำเตือน: ปรับตำแหน่งจุดต่างในไฟล์นี้ให้ตรงกับภาพ image1.png */}
-        {/* Coordinates ใช้ระบบ 0.0-1.0 (เปอร์เซ็นต์ของภาพ) */}
-
+        {/* Timer and Game Status */}
         <div style={{
           display: 'flex',
           flexDirection: isMobile ? 'column' : 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
           marginBottom: '20px',
-          gap: '10px'
+          gap: '10px',
+          backgroundColor: 'rgba(255,255,255,0.1)',
+          padding: '15px',
+          borderRadius: '8px'
         }}>
-          {/* <div style={{ fontSize: isMobile ? '14px' : '16px' }}>
-            Found: {foundDifferences.length}/3 differences
+          <div style={{ 
+            fontSize: isMobile ? '16px' : '18px',
+            color: getTimeColor(),
+            fontWeight: 'bold'
+          }}>
+            Time: {formatTime(timeLeft)}
           </div>
           <div style={{ fontSize: isMobile ? '14px' : '16px' }}>
-            Clicks: {clicks}
-          </div> */}
-          {/* <Link href="/dimension/2" style={{
-            color: '#4a90e2',
-            textDecoration: 'none',
-            fontSize: isMobile ? '14px' : '16px'
-          }}>
-            📖 View Original
-          </Link> */}
+            Found: {foundDifferences.length}/3 differences
+          </div>
         </div>
 
         {!imageLoaded && (
@@ -178,72 +221,50 @@ export default function SpotTheDifference() {
         <div style={{
           display: 'flex',
           justifyContent: 'center',
-          marginBottom: '20px'
+          marginBottom: '20px',
+          position: 'relative'
         }}>
           <canvas
             ref={canvasRef}
             onClick={handleImageClick}
             style={{
-              // border: '2px solid #4a90e2',
               borderRadius: '8px',
-              cursor: gameCompleted ? 'default' : 'crosshair',
+              cursor: (gameCompleted || gameOver) ? 'default' : 'crosshair',
               maxWidth: '100%',
               height: 'auto'
             }}
           />
+          
+          {/* Game Over Overlay */}
+          {gameOver && !gameCompleted && (
+            <div style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              backgroundColor: 'rgba(0,0,0,0.8)',
+              padding: '20px',
+              borderRadius: '8px',
+              textAlign: 'center',
+              minWidth: isMobile ? '250px' : '300px'
+            }}>
+              <h2 style={{ margin: '0 0 10px 0', color: '#e74c3c' }}>Time's Up!</h2>
+            </div>
+          )}
         </div>
 
+        {/* Game Completed Message */}
         {gameCompleted && (
           <div style={{
             backgroundColor: '#27ae60',
-            padding: '20px',
+            padding: '40px',
             borderRadius: '8px',
-            marginBottom: '20px',
-            // animation: 'pulse 2s infinite'
+            marginBottom: '20px'
           }}>
             <h2 style={{ margin: '0 0 10px 0' }}>Congratulations!</h2>
-            <p style={{ margin: '0' }}>
-            </p>
           </div>
         )}
 
-        {/* <div style={{
-          display: 'flex',
-          flexDirection: isMobile ? 'column' : 'row',
-          justifyContent: 'center',
-          gap: '10px',
-          marginBottom: '20px'
-        }}>
-          <button
-            onClick={resetGame}
-            style={{
-              padding: '12px 24px',
-              backgroundColor: '#e74c3c',
-              color: 'white',
-              border: 'none',
-              borderRadius: '6px',
-              cursor: 'pointer',
-              fontSize: '16px',
-              transition: 'background-color 0.3s'
-            }}
-            onMouseOver={(e) => e.target.style.backgroundColor = '#c0392b'}
-            onMouseOut={(e) => e.target.style.backgroundColor = '#e74c3c'}
-          >
-            🔄 Reset Game
-          </button>
-        </div> */}
-
-        {/* <div style={{
-          backgroundColor: 'rgba(255,255,255,0.1)',
-          padding: '15px',
-          borderRadius: '8px',
-          fontSize: isMobile ? '12px' : '14px'
-        }}>
-          <h3 style={{ margin: '0 0 10px 0' }}>How to Play:</h3>
-          <p style={{ margin: '5px 0' }}>• Click on areas where you think there are differences</p>
-          <p style={{ margin: '5px 0' }}>• Find all 3 hidden differences in the image</p>
-          <p style={{ margin: '5px 0' }}>• Use fewer clicks for a better score!</p>
-        </div> */}
       </div>
 
       <style jsx>{`
