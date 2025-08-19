@@ -19,9 +19,9 @@ export default function SpotTheDifference() {
   // ตำแหน่งของจุดต่าง (3 จุด) - ใช้อัตราส่วนจากภาพ (0.0-1.0)
   // ปรับตำแหน่งเหล่านี้ให้ตรงกับจุดที่แตกต่างในภาพจริง
   const differences = [
-    { id: 1, x: 0.23, y: 0.25, radius: 25, description: "Character detail (upper left)" },
-    { id: 2, x: 0.78, y: 0.42, radius: 25, description: "Background element (upper right)" },
-    { id: 3, x: 0.83, y: 0.68, radius: 25, description: "Lower right detail" }
+    { id: 1, x: 0.23, y: 0.07, radius: 25, description: "Character detail (upper left)" },
+    { id: 2, x: 0.78, y: 0.30, radius: 33, description: "Background element (upper right)" },
+    { id: 3, x: 0.83, y: 0.60, radius: 25, description: "Lower right detail" }
   ];
 
   // Timer Effect
@@ -305,7 +305,7 @@ export default function SpotTheDifference() {
         </div>
 
         {/* Game Completed Message */}
-        {gameCompleted && (
+        {/* {gameCompleted && (
           <div style={{
             backgroundColor: '#27ae60',
             padding: '40px',
@@ -325,7 +325,7 @@ export default function SpotTheDifference() {
               ✨ Redirecting to your reward page...
             </p>
           </div>
-        )}
+        )} */}
 
         {/* Warning Image - Bottom */}
         <div style={{
