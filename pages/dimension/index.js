@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export default function SpotTheDifference() {
   const [foundDifferences, setFoundDifferences] = useState([]);
@@ -13,6 +14,7 @@ export default function SpotTheDifference() {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const timerRef = useRef(null);
+  const router = useRouter();
 
   // ตำแหน่งของจุดต่าง (3 จุด) - ใช้อัตราส่วนจากภาพ (0.0-1.0)
   // ปรับตำแหน่งเหล่านี้ให้ตรงกับจุดที่แตกต่างในภาพจริง
@@ -71,32 +73,40 @@ export default function SpotTheDifference() {
     if (foundDifferences.length === differences.length && !gameOver) {
       setGameCompleted(true);
       clearInterval(timerRef.current);
+      
+      // Redirect to congratulations page after 2 seconds
+      setTimeout(() => {
+        router.push('/dimension/2');
+      }, 2000);
     }
-  }, [foundDifferences, gameOver]);
+  }, [foundDifferences, gameOver, router]);
 
   const handleImageClick = (e) => {
     if (gameCompleted || gameOver) return;
 
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
-    const scaleX = canvas.width / rect.width;
-    const scaleY = canvas.height / rect.height;
+    const pixelRatio = window.devicePixelRatio || 1;
     
-    const clickX = (e.clientX - rect.left) * scaleX;
-    const clickY = (e.clientY - rect.top) * scaleY;
+    // Get display dimensions
+    const displayWidth = parseFloat(canvas.style.width);
+    const displayHeight = parseFloat(canvas.style.height);
+    
+    const clickX = (e.clientX - rect.left) * (displayWidth / rect.width);
+    const clickY = (e.clientY - rect.top) * (displayHeight / rect.height);
 
     setClicks(prev => prev + 1);
 
     // แปลงตำแหน่งคลิกเป็นอัตราส่วนของภาพ
-    const clickXPercent = clickX / canvas.width;
-    const clickYPercent = clickY / canvas.height;
+    const clickXPercent = clickX / displayWidth;
+    const clickYPercent = clickY / displayHeight;
 
     // ตรวจสอบว่าคลิกถูกจุดต่างหรือไม่
     const foundDiff = differences.find(diff => {
       const distance = Math.sqrt(
         Math.pow(clickXPercent - diff.x, 2) + Math.pow(clickYPercent - diff.y, 2)
       );
-      const radiusPercent = diff.radius / Math.min(canvas.width, canvas.height);
+      const radiusPercent = diff.radius / Math.min(displayWidth, displayHeight);
       return distance <= radiusPercent && !foundDifferences.includes(diff.id);
     });
 
@@ -109,38 +119,38 @@ export default function SpotTheDifference() {
       ctx.strokeStyle = '#ff4444';
       ctx.lineWidth = 3;
       ctx.beginPath();
-      const actualX = foundDiff.x * canvas.width;
-      const actualY = foundDiff.y * canvas.height;
-      const actualRadius = (foundDiff.radius / Math.min(canvas.width, canvas.height)) * Math.min(canvas.width, canvas.height);
+      const actualX = foundDiff.x * displayWidth;
+      const actualY = foundDiff.y * displayHeight;
+      const actualRadius = (foundDiff.radius / Math.min(displayWidth, displayHeight)) * Math.min(displayWidth, displayHeight);
       ctx.arc(actualX, actualY, actualRadius, 0, 2 * Math.PI);
       ctx.stroke();
     } else {
-      // // แสดงกากบาทที่จุดที่คลิกผิด
-      // const canvas = canvasRef.current;
-      // const ctx = canvas.getContext('2d');
-      // ctx.strokeStyle = '#ff0000';
-      // ctx.lineWidth = 4;
+      // แสดงกากบาทที่จุดที่คลิกผิด
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext('2d');
+      ctx.strokeStyle = '#ff0000';
+      ctx.lineWidth = 4;
       
-      // // วาดกากบาท (X)
-      // const size = 15;
-      // ctx.beginPath();
-      // // เส้นแรก (\)
-      // ctx.moveTo(clickX - size, clickY - size);
-      // ctx.lineTo(clickX + size, clickY + size);
-      // // เส้นที่สอง (/)
-      // ctx.moveTo(clickX + size, clickY - size);
-      // ctx.lineTo(clickX - size, clickY + size);
-      // ctx.stroke();
+      // วาดกากบาท (X)
+      const size = 15;
+      ctx.beginPath();
+      // เส้นแรก (\)
+      ctx.moveTo(clickX - size, clickY - size);
+      ctx.lineTo(clickX + size, clickY + size);
+      // เส้นที่สอง (/)
+      ctx.moveTo(clickX + size, clickY - size);
+      ctx.lineTo(clickX - size, clickY + size);
+      ctx.stroke();
       
-      // // หักเวลาเมื่อคลิกผิด (ไม่ให้เวลาติดลบ)
-      // setTimeLeft(prev => {
-      //   const newTime = prev - 30;
-      //   if (newTime <= 0) {
-      //     setGameOver(true);
-      //     return 0;
-      //   }
-      //   return newTime;
-      // }); 
+      // หักเวลาเมื่อคลิกผิด (ไม่ให้เวลาติดลบ)
+      setTimeLeft(prev => {
+        const newTime = prev - 30;
+        if (newTime <= 0) {
+          setGameOver(true);
+          return 0;
+        }
+        return newTime;
+      }); 
     }
   };
 
@@ -171,8 +181,21 @@ export default function SpotTheDifference() {
       const newWidth = img.width * ratio;
       const newHeight = img.height * ratio;
       
-      canvas.width = newWidth;
-      canvas.height = newHeight;
+      // Set canvas resolution to maintain quality
+      const pixelRatio = window.devicePixelRatio || 1;
+      canvas.width = newWidth * pixelRatio;
+      canvas.height = newHeight * pixelRatio;
+      
+      // Set display size
+      canvas.style.width = newWidth + 'px';
+      canvas.style.height = newHeight + 'px';
+      
+      // Scale context for high DPI displays
+      ctx.scale(pixelRatio, pixelRatio);
+      
+      // Enable image smoothing for better quality
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
       
       ctx.drawImage(img, 0, 0, newWidth, newHeight);
       setImageLoaded(true);
@@ -205,7 +228,8 @@ export default function SpotTheDifference() {
         textAlign: 'center'
       }}>
         
-        {/* Timer and Game Status */}
+
+ 
         <div style={{
           display: 'flex',
           flexDirection: isMobile ? 'column' : 'row',
@@ -228,12 +252,19 @@ export default function SpotTheDifference() {
             Found: {foundDifferences.length}/3 differences
           </div>
         </div>
-
-        {!imageLoaded && (
-          <div style={{ padding: '40px', fontSize: '18px' }}>
-            Loading image...
-          </div>
-        )}
+                <div style={{
+          marginBottom: '20px'
+        }}>
+          <img
+            src="/dimension/Name2.png"
+            alt="Game Title"
+            style={{
+              maxWidth: isMobile ? '90%' : '400px',
+              height: 'auto',
+              borderRadius: '10px'
+            }}
+          />
+        </div>
 
         <div style={{
           display: 'flex',
@@ -279,42 +310,42 @@ export default function SpotTheDifference() {
             backgroundColor: '#27ae60',
             padding: '40px',
             borderRadius: '8px',
-            marginBottom: '20px'
+            marginBottom: '20px',
+            // animation: 'pulse 1s infinite'
           }}>
-            <h2 style={{ margin: '0 0 10px 0' }}>Congratulations!</h2>
-            <p style={{ margin: '0' }}>
+            <h2 style={{ margin: '0 0 10px 0' }}>🎉 Congratulations! 🎉</h2>
+            <p style={{ margin: '0 0 10px 0' }}>
               You found all differences in {180 - timeLeft} seconds!
+            </p>
+            <p style={{ 
+              margin: '0',
+              fontSize: '14px',
+              color: '#e8f5e8'
+            }}>
+              ✨ Redirecting to your reward page...
             </p>
           </div>
         )}
 
-        {/* Reset Button */}
-        {(gameCompleted || gameOver) && (
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '10px',
-            marginBottom: '20px'
-          }}>
-            <button
-              onClick={resetGame}
-              style={{
-                padding: '12px 24px',
-                backgroundColor: '#e74c3c',
-                color: 'white',
-                border: 'none',
-                borderRadius: '6px',
-                cursor: 'pointer',
-                fontSize: '16px',
-                transition: 'background-color 0.3s'
-              }}
-              onMouseOver={(e) => e.target.style.backgroundColor = '#c0392b'}
-              onMouseOut={(e) => e.target.style.backgroundColor = '#e74c3c'}
-            >
-              🔄 Play Again
-            </button>
-          </div>
-        )}
+        {/* Warning Image - Bottom */}
+        <div style={{
+          marginTop: '30px',
+          display: 'flex',
+          justifyContent: 'center'
+        }}>
+          <img
+            src="/dimension/warning.png"
+            alt="Warning"
+            style={{
+              maxWidth: isMobile ? '90%' : '300px',
+              height: 'auto',
+              borderRadius: '8px',
+              opacity: 0.8
+            }}
+          />
+        </div>
+
+       
 
       </div>
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 
-export default function OriginalImage() {
+export default function Congratulations() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -16,192 +16,162 @@ export default function OriginalImage() {
     return () => window.removeEventListener('resize', checkIsMobile);
   }, []);
 
-  // ตำแหน่งของจุดต่าง (สำหรับอ้างอิง)
-  const differences = [
-    { id: 1, description: "Character detail (upper left)", location: "Upper left area - character detail" },
-    { id: 2, description: "Background element (upper right)", location: "Upper right corner - background element" },
-    { id: 3, description: "Lower right detail", location: "Lower right corner area" }
-  ];
-
   return (
     <div style={{
       minHeight: '100vh',
-      backgroundColor: '#1a1a2e',
+      backgroundColor: '#000000',
       color: 'white',
       fontFamily: 'Arial, sans-serif',
-      padding: isMobile ? '10px 5px' : '20px'
+      padding: isMobile ? '10px 5px' : '20px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center'
     }}>
       <Head>
-        <title>Original Image - Dimension</title>
+        <title>Congratulations! - Dimension</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
 
       <div style={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-        textAlign: 'center'
+        maxWidth: '800px',
+        textAlign: 'center',
+        // animation: 'fadeIn 1s ease-in'
       }}>
-        <h1 style={{
-          fontSize: isMobile ? '24px' : '32px',
-          marginBottom: '20px',
-          color: '#4a90e2'
-        }}>
-          📖 Original Image Reference
-        </h1>
-
+        
         <div style={{
-          display: 'flex',
-          flexDirection: isMobile ? 'column' : 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
           marginBottom: '30px',
-          gap: '15px'
-        }}>
-          <Link href="/dimension" style={{
-            padding: '12px 24px',
-            backgroundColor: '#4a90e2',
-            color: 'white',
-            textDecoration: 'none',
-            borderRadius: '6px',
-            fontSize: '16px',
-            transition: 'background-color 0.3s',
-            display: 'inline-block'
-          }}>
-            🎮 Back to Game
-          </Link>
-        </div>
-
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center',
-          marginBottom: '30px'
+          // animation: 'bounce 2s infinite'
         }}>
           <img
-            src="/dimension/image2.png"
-            alt="Original Image Reference"
+            src="/dimension/congrat.png"
+            alt="Congratulations!"
             style={{
-              maxWidth: '100%',
+              maxWidth: isMobile ? '90%' : '600px',
               height: 'auto',
-              border: '3px solid #4a90e2',
-              borderRadius: '8px',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.3)'
+              borderRadius: '15px',
+              boxShadow: '0 10px 30px rgba(255,255,255,0.1)'
+            }}
+          />
+        </div>
+        <div style={{
+          marginBottom: '30px'
+        }}>
+
+          <img
+            src="/dimension/export 10.png"
+            alt="Your Reward"
+            style={{
+              maxWidth: isMobile ? '90%' : '500px',
+              height: 'auto',
+              borderRadius: '10px'
             }}
           />
         </div>
 
         <div style={{
-          backgroundColor: 'rgba(255,255,255,0.1)',
-          padding: '20px',
-          borderRadius: '8px',
-          marginBottom: '20px',
-          textAlign: 'left'
+          display: 'flex',
+          flexDirection: isMobile ? 'column' : 'row',
+          justifyContent: 'center',
+          gap: '15px',
+          marginBottom: '30px'
         }}>
-          <h3 style={{ 
-            margin: '0 0 15px 0', 
-            textAlign: 'center',
-            color: '#4a90e2' 
-          }}>
-            🎯 Difference Locations (Spoiler Alert!)
-          </h3>
+          <a
+            href="https://www.facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              padding: '15px 30px',
+              backgroundColor: '#1877F2',
+              color: 'white',
+              textDecoration: 'none',
+              borderRadius: '8px',
+              fontSize: '16px',
+              fontWeight: 'bold',
+              transition: 'all 0.3s',
+              boxShadow: '0 4px 15px rgba(24, 119, 242, 0.3)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '10px'
+            }}
+            onMouseOver={(e) => {
+              e.target.style.backgroundColor = '#166FE5';
+              e.target.style.transform = 'translateY(-2px)';
+            }}
+            onMouseOut={(e) => {
+              e.target.style.backgroundColor = '#1877F2';
+              e.target.style.transform = 'translateY(0)';
+            }}
+          >
+            {/* Facebook Icon */}
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+            Facebook
+          </a>
           
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '15px'
-          }}>
-            {differences.map((diff, index) => (
-              <div key={diff.id} style={{
-                backgroundColor: 'rgba(255,255,255,0.05)',
-                padding: '15px',
-                borderRadius: '6px',
-                border: '1px solid rgba(255,255,255,0.1)'
-              }}>
-                <h4 style={{ 
-                  margin: '0 0 8px 0',
-                  color: '#e74c3c',
-                  fontSize: isMobile ? '14px' : '16px'
-                }}>
-                  Difference #{diff.id}
-                </h4>
-                <p style={{ 
-                  margin: '0 0 5px 0',
-                  fontSize: isMobile ? '12px' : '14px'
-                }}>
-                  <strong>What:</strong> {diff.description}
-                </p>
-                <p style={{ 
-                  margin: '0',
-                  fontSize: isMobile ? '12px' : '14px',
-                  color: '#bbb'
-                }}>
-                  <strong>Where:</strong> {diff.location}
-                </p>
-              </div>
-            ))}
-          </div>
+          <a
+            href="https://store.steampowered.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              padding: '15px 30px',
+              backgroundColor: '#1B2838',
+              color: 'white',
+              textDecoration: 'none',
+              borderRadius: '8px',
+              fontSize: '16px',
+              fontWeight: 'bold',
+              transition: 'all 0.3s',
+              boxShadow: '0 4px 15px rgba(27, 40, 56, 0.3)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '10px'
+            }}
+            onMouseOver={(e) => {
+              e.target.style.backgroundColor = '#2A475E';
+              e.target.style.transform = 'translateY(-2px)';
+            }}
+            onMouseOut={(e) => {
+              e.target.style.backgroundColor = '#1B2838';
+              e.target.style.transform = 'translateY(0)';
+            }}
+          >
+            {/* Steam Icon */}
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.624 0 11.999-5.375 11.999-12C23.978 5.376 18.603.001 11.979 0zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.409 1.5 1.009 2.456-.397.957-1.497 1.41-2.454 1.011H7.54zm8.55-11.01c0-1.662-1.353-3.015-3.015-3.015-1.665 0-3.015 1.353-3.015 3.015 0 1.665 1.35 3.015 3.015 3.015 1.663 0 3.015-1.35 3.015-3.015zm-5.273 0c0-1.252 1.013-2.266 2.265-2.266 1.249 0 2.266 1.014 2.266 2.266 0 1.251-1.017 2.265-2.266 2.265-1.252 0-2.265-1.014-2.265-2.265z"/>
+            </svg>
+            Steam
+          </a>
         </div>
 
-        <div style={{
-          backgroundColor: 'rgba(74, 144, 226, 0.1)',
-          padding: '20px',
-          borderRadius: '8px',
-          border: '1px solid #4a90e2'
-        }}>
-          <h3 style={{ 
-            margin: '0 0 15px 0',
-            color: '#4a90e2'
-          }}>
-            📝 About This Image
-          </h3>
-          <p style={{ 
-            margin: '0 0 10px 0',
-            fontSize: isMobile ? '14px' : '16px',
-            lineHeight: '1.6'
-          }}>
-            This is the original reference image for the spot-the-difference game. 
-            The game version contains 3 subtle differences that have been carefully placed 
-            to challenge your observation skills.
-          </p>
-          <p style={{ 
-            margin: '0',
-            fontSize: isMobile ? '14px' : '16px',
-            lineHeight: '1.6',
-            color: '#bbb'
-          }}>
-            Compare this original with the game image to spot what's different, 
-            or use this as a reference if you're stuck!
-          </p>
-        </div>
 
-        <div style={{
-          marginTop: '30px',
-          padding: '15px',
-          backgroundColor: 'rgba(255,255,255,0.05)',
-          borderRadius: '8px',
-          fontSize: isMobile ? '12px' : '14px'
-        }}>
-          <p style={{ margin: '0', color: '#888' }}>
-            💡 Tip: Try not to look at the spoilers above until you've tried finding 
-            the differences yourself in the game!
-          </p>
-        </div>
       </div>
 
       <style jsx>{`
-        @media (max-width: 768px) {
-          img {
-            max-width: calc(100vw - 10px) !important;
-            width: calc(100vw - 10px) !important;
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes bounce {
+          0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
           }
-          
-          body {
-            padding: 0 !important;
-            margin: 0 !important;
+          40% {
+            transform: translateY(-10px);
+          }
+          60% {
+            transform: translateY(-5px);
           }
         }
         
-        a:hover {
-          background-color: #357abd !important;
+        @media (max-width: 768px) {
+          img {
+            max-width: 95% !important;
+          }
         }
       `}</style>
     </div>
