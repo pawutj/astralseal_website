@@ -115,6 +115,23 @@ export default function SpotTheDifference() {
       ctx.arc(actualX, actualY, actualRadius, 0, 2 * Math.PI);
       ctx.stroke();
     } else {
+      // แสดงกากบาทที่จุดที่คลิกผิด
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext('2d');
+      ctx.strokeStyle = '#ff0000';
+      ctx.lineWidth = 4;
+      
+      // วาดกากบาท (X)
+      const size = 15;
+      ctx.beginPath();
+      // เส้นแรก (\)
+      ctx.moveTo(clickX - size, clickY - size);
+      ctx.lineTo(clickX + size, clickY + size);
+      // เส้นที่สอง (/)
+      ctx.moveTo(clickX + size, clickY - size);
+      ctx.lineTo(clickX - size, clickY + size);
+      ctx.stroke();
+      
       // หักเวลาเมื่อคลิกผิด (ไม่ให้เวลาติดลบ)
       setTimeLeft(prev => {
         const newTime = prev - 30;
@@ -249,6 +266,9 @@ export default function SpotTheDifference() {
               minWidth: isMobile ? '250px' : '300px'
             }}>
               <h2 style={{ margin: '0 0 10px 0', color: '#e74c3c' }}>Time's Up!</h2>
+              <p style={{ margin: '0 0 15px 0' }}>
+                You found {foundDifferences.length}/3 differences
+              </p>
             </div>
           )}
         </div>
@@ -262,6 +282,37 @@ export default function SpotTheDifference() {
             marginBottom: '20px'
           }}>
             <h2 style={{ margin: '0 0 10px 0' }}>Congratulations!</h2>
+            <p style={{ margin: '0' }}>
+              You found all differences in {180 - timeLeft} seconds!
+            </p>
+          </div>
+        )}
+
+        {/* Reset Button */}
+        {(gameCompleted || gameOver) && (
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '10px',
+            marginBottom: '20px'
+          }}>
+            <button
+              onClick={resetGame}
+              style={{
+                padding: '12px 24px',
+                backgroundColor: '#e74c3c',
+                color: 'white',
+                border: 'none',
+                borderRadius: '6px',
+                cursor: 'pointer',
+                fontSize: '16px',
+                transition: 'background-color 0.3s'
+              }}
+              onMouseOver={(e) => e.target.style.backgroundColor = '#c0392b'}
+              onMouseOut={(e) => e.target.style.backgroundColor = '#e74c3c'}
+            >
+              🔄 Play Again
+            </button>
           </div>
         )}
 
