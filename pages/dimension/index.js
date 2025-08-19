@@ -304,30 +304,7 @@ export default function SpotTheDifference() {
           )}
         </div>
 
-        {/* Game Completed Message */}
-        {/* {gameCompleted && (
-          <div style={{
-            backgroundColor: '#27ae60',
-            padding: '40px',
-            borderRadius: '8px',
-            marginBottom: '20px',
-            // animation: 'pulse 1s infinite'
-          }}>
-            <h2 style={{ margin: '0 0 10px 0' }}>🎉 Congratulations! 🎉</h2>
-            <p style={{ margin: '0 0 10px 0' }}>
-              You found all differences in {180 - timeLeft} seconds!
-            </p>
-            <p style={{ 
-              margin: '0',
-              fontSize: '14px',
-              color: '#e8f5e8'
-            }}>
-              ✨ Redirecting to your reward page...
-            </p>
-          </div>
-        )} */}
 
-        {/* Warning Image - Bottom */}
         <div style={{
           marginTop: '30px',
           display: 'flex',
