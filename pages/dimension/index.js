@@ -17,9 +17,9 @@ export default function SpotTheDifference() {
   // ตำแหน่งของจุดต่าง (3 จุด) - ใช้อัตราส่วนจากภาพ (0.0-1.0)
   // ปรับตำแหน่งเหล่านี้ให้ตรงกับจุดที่แตกต่างในภาพจริง
   const differences = [
-    { id: 1, x: 0.31, y: 0.28, radius: 25, description: "Character detail (upper left)" },
-    { id: 2, x: 0.70, y: 0.4, radius: 25, description: "Background element (upper right)" },
-    { id: 3, x: 0.75, y: 0.60, radius: 25, description: "Lower right detail" }
+    { id: 1, x: 0.23, y: 0.25, radius: 25, description: "Character detail (upper left)" },
+    { id: 2, x: 0.78, y: 0.42, radius: 25, description: "Background element (upper right)" },
+    { id: 3, x: 0.83, y: 0.68, radius: 25, description: "Lower right detail" }
   ];
 
   // Timer Effect
@@ -115,32 +115,32 @@ export default function SpotTheDifference() {
       ctx.arc(actualX, actualY, actualRadius, 0, 2 * Math.PI);
       ctx.stroke();
     } else {
-      // แสดงกากบาทที่จุดที่คลิกผิด
-      const canvas = canvasRef.current;
-      const ctx = canvas.getContext('2d');
-      ctx.strokeStyle = '#ff0000';
-      ctx.lineWidth = 4;
+      // // แสดงกากบาทที่จุดที่คลิกผิด
+      // const canvas = canvasRef.current;
+      // const ctx = canvas.getContext('2d');
+      // ctx.strokeStyle = '#ff0000';
+      // ctx.lineWidth = 4;
       
-      // วาดกากบาท (X)
-      const size = 15;
-      ctx.beginPath();
-      // เส้นแรก (\)
-      ctx.moveTo(clickX - size, clickY - size);
-      ctx.lineTo(clickX + size, clickY + size);
-      // เส้นที่สอง (/)
-      ctx.moveTo(clickX + size, clickY - size);
-      ctx.lineTo(clickX - size, clickY + size);
-      ctx.stroke();
+      // // วาดกากบาท (X)
+      // const size = 15;
+      // ctx.beginPath();
+      // // เส้นแรก (\)
+      // ctx.moveTo(clickX - size, clickY - size);
+      // ctx.lineTo(clickX + size, clickY + size);
+      // // เส้นที่สอง (/)
+      // ctx.moveTo(clickX + size, clickY - size);
+      // ctx.lineTo(clickX - size, clickY + size);
+      // ctx.stroke();
       
-      // หักเวลาเมื่อคลิกผิด (ไม่ให้เวลาติดลบ)
-      setTimeLeft(prev => {
-        const newTime = prev - 30;
-        if (newTime <= 0) {
-          setGameOver(true);
-          return 0;
-        }
-        return newTime;
-      }); 
+      // // หักเวลาเมื่อคลิกผิด (ไม่ให้เวลาติดลบ)
+      // setTimeLeft(prev => {
+      //   const newTime = prev - 30;
+      //   if (newTime <= 0) {
+      //     setGameOver(true);
+      //     return 0;
+      //   }
+      //   return newTime;
+      // }); 
     }
   };
 
@@ -177,7 +177,7 @@ export default function SpotTheDifference() {
       ctx.drawImage(img, 0, 0, newWidth, newHeight);
       setImageLoaded(true);
     };
-    img.src = '/dimension/image3.PNG';
+    img.src = '/dimension/IMG3.PNG';
   };
 
   useEffect(() => {
