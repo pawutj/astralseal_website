@@ -12,20 +12,27 @@ export default function Home() {
       <main>
         <hr/>
         
-        {/* Safe image container with aspect ratio preservation */}
-        <div className="image-container">
+        {/* FIXED SIZE IMAGE CONTAINER - No stretching possible */}
+        <div className="fixed-image-container" style={{
+          width: '784px',
+          height: '572px',
+          margin: '0 auto',
+          textAlign: 'center',
+          overflow: 'hidden',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
           <img
             src="/landingpage.png"
             alt="Picture of the author"
-            className="landing-image"
-            onLoad={(e) => {
-              // Force maintain natural aspect ratio
-              const img = e.target;
-              const naturalRatio = img.naturalWidth / img.naturalHeight;
-              img.style.aspectRatio = naturalRatio;
-              img.style.width = 'auto';
-              img.style.maxWidth = '100%';
-              img.style.height = 'auto';
+            className="fixed-image"
+            style={{
+              width: '784px',
+              height: '572px',
+              objectFit: 'contain',
+              objectPosition: 'center',
+              display: 'block'
             }}
           />
         </div>
@@ -150,17 +157,18 @@ export default function Home() {
             DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
         }
         
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-          .image-container {
-            max-width: 95%;
-            padding: 0 10px;
+        /* Mobile responsiveness - scale down proportionally */
+        @media (max-width: 800px) {
+          .fixed-image-container {
+            width: calc(100vw - 40px) !important;
+            height: calc((100vw - 40px) * 572 / 784) !important;
+            max-width: 784px !important;
+            max-height: 572px !important;
           }
           
-          .landing-image {
-            width: auto !important;
-            max-width: 100% !important;
-            height: auto !important;
+          .fixed-image {
+            width: 100% !important;
+            height: 100% !important;
           }
         }
       `}</style>

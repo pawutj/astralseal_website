@@ -250,16 +250,29 @@ export default function SpotTheDifference() {
           </div>
         </div>
 
-        {/* SAFE IMAGE CONTAINER - Name2.png */}
-        <div className="safe-image-container">
+        {/* FIXED SIZE IMAGE CONTAINER - Name2.png */}
+        <div className="title-image-container" style={{
+          width: isMobile ? 'calc(100vw - 40px)' : '400px',
+          height: isMobile ? 'calc((100vw - 40px) * 200 / 400)' : '200px',
+          maxWidth: '400px',
+          maxHeight: '200px',
+          margin: '20px auto',
+          textAlign: 'center',
+          overflow: 'hidden',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
           <img
             src="/dimension/Name2.png"
             alt="Game Title"
-            className="safe-image title-image"
-            onLoad={(e) => {
-              const img = e.target;
-              const naturalRatio = img.naturalWidth / img.naturalHeight;
-              img.style.aspectRatio = naturalRatio;
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
+              objectPosition: 'center',
+              display: 'block',
+              borderRadius: '8px'
             }}
           />
         </div>
@@ -302,18 +315,29 @@ export default function SpotTheDifference() {
           )}
         </div>
 
-        {/* SAFE IMAGE CONTAINER - warning.png */}
-        <div className="safe-image-container">
+        {/* FIXED SIZE IMAGE CONTAINER - warning.png */}
+        <div className="warning-image-container" style={{
+          width: isMobile ? 'calc(100vw - 40px)' : '300px',
+          height: isMobile ? 'calc((100vw - 40px) * 150 / 300)' : '150px',
+          maxWidth: '300px',
+          maxHeight: '150px',
+          margin: '30px auto 0 auto',
+          textAlign: 'center',
+          overflow: 'hidden',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
           <img
             src="/dimension/warning.png"
             alt="Warning"
-            className="safe-image warning-image"
-            onLoad={(e) => {
-              const img = e.target;
-              const naturalRatio = img.naturalWidth / img.naturalHeight;
-              img.style.aspectRatio = naturalRatio;
-            }}
             style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
+              objectPosition: 'center',
+              display: 'block',
+              borderRadius: '8px',
               opacity: 0.8
             }}
           />
@@ -322,77 +346,37 @@ export default function SpotTheDifference() {
       </div>
 
       <style jsx>{`
-        /* CRITICAL: Safe image containers */
-        .safe-image-container {
-          width: 100%;
-          max-width: ${isMobile ? '90%' : '400px'};
-          margin: 20px auto;
-          text-align: center;
-          overflow: hidden;
-          position: relative;
+        /* Mobile responsive scaling */
+        @media (max-width: 800px) {
+          /* Landing page image scaling */
+          .fixed-image-container {
+            width: calc(100vw - 40px) !important;
+            height: calc((100vw - 40px) * 572 / 784) !important;
+            max-width: 784px !important;
+            max-height: 572px !important;
+          }
+          
+          .fixed-image {
+            width: 100% !important;
+            height: 100% !important;
+          }
         }
         
-        /* CRITICAL: Safe image styling */
-        .safe-image {
-          width: auto !important;
-          max-width: 100% !important;
-          height: auto !important;
-          object-fit: contain !important;
-          object-position: center !important;
-          display: block !important;
-          margin: 0 auto !important;
-          border-radius: 8px;
+        @media (max-width: 450px) {
+          .fixed-image-container {
+            width: calc(100vw - 20px) !important;
+            height: calc((100vw - 20px) * 572 / 784) !important;
+          }
         }
         
-        .title-image {
-          max-width: ${isMobile ? '90%' : '400px'} !important;
-        }
-        
-        .warning-image {
-          max-width: ${isMobile ? '90%' : '300px'} !important;
-        }
-        
-        @keyframes pulse {
-          0% { transform: scale(1); }
-          50% { transform: scale(1.05); }
-          100% { transform: scale(1); }
-        }
-        
-        /* CRITICAL: Global image protection */
+        /* CRITICAL: Prevent any image stretching */
         img {
-          max-width: 100% !important;
-          height: auto !important;
           object-fit: contain !important;
           object-position: center !important;
-          width: auto !important;
         }
         
-        /* Force containers to respect image dimensions */
-        div {
-          max-width: 100%;
-        }
-        
-        @media (max-width: 768px) {
-          canvas {
-            max-width: calc(100vw - 10px) !important;
-            width: calc(100vw - 10px) !important;
-          }
-          
-          body {
-            padding: 0 !important;
-            margin: 0 !important;
-          }
-          
-          .safe-image {
-            width: auto !important;
-            max-width: 100% !important;
-            height: auto !important;
-          }
-          
-          .safe-image-container {
-            max-width: 95% !important;
-            padding: 0 5px;
-          }
+        div[style*="display: flex"] img {
+          flex-shrink: 0 !important;
         }
       `}</style>
     </div>
