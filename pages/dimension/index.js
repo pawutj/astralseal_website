@@ -294,29 +294,30 @@ export default function SpotTheDifference() {
             }}
           />
           
-          {/* Game Over Overlay */}
+          {/* Game Over Overlay - Full Screen */}
           {gameOver && !gameCompleted && (
             <div style={{
               position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              backgroundColor: 'rgba(0,0,0,0.8)',
-              padding: '20px',
-              borderRadius: '8px',
-              textAlign: 'center',
-              minWidth: '300px'
+              top: '0',
+              left: '0',
+              width: '100%',
+              height: '100%',
+              backgroundColor: 'rgba(0,0,0,0.9)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 1000
             }}>
               <img
                 src="/dimension/fail.png"
                 alt="Game Over"
                 style={{
-                  width: '250px',
+                  width: isMobile ? '80%' : '60%',
+                  maxWidth: '500px',
                   height: 'auto',
                   objectFit: 'contain',
                   objectPosition: 'center',
-                  display: 'block',
-                  margin: '0 auto'
+                  display: 'block'
                 }}
               />
             </div>
