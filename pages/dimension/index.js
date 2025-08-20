@@ -307,10 +307,18 @@ export default function SpotTheDifference() {
               textAlign: 'center',
               minWidth: isMobile ? '250px' : '300px'
             }}>
-              <h2 style={{ margin: '0 0 10px 0', color: '#e74c3c' }}>Time's Up!</h2>
-              <p style={{ margin: '0 0 15px 0' }}>
-                You found {foundDifferences.length}/3 differences
-              </p>
+              <img
+                src="/dimension/fail.png"
+                alt="Game Over"
+                style={{
+                  width: isMobile ? '200px' : '250px',
+                  height: 'auto',
+                  objectFit: 'contain',
+                  objectPosition: 'center',
+                  display: 'block',
+                  margin: '0 auto'
+                }}
+              />
             </div>
           )}
         </div>
