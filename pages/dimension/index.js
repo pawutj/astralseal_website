@@ -199,7 +199,7 @@ export default function SpotTheDifference() {
       ctx.drawImage(img, 0, 0, newWidth, newHeight);
       setImageLoaded(true);
     };
-    img.src = '/dimension/IMG3.PNG';
+    img.src = '/dimension/IMG2.PNG';
   };
 
   useEffect(() => {
