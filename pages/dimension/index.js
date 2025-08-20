@@ -17,7 +17,6 @@ export default function SpotTheDifference() {
   const router = useRouter();
 
   // ตำแหน่งของจุดต่าง (3 จุด) - ใช้อัตราส่วนจากภาพ (0.0-1.0)
-  // ปรับตำแหน่งเหล่านี้ให้ตรงกับจุดที่แตกต่างในภาพจริง
   const differences = [
     { id: 1, x: 0.23, y: 0.07, radius: 25, description: "Character detail (upper left)" },
     { id: 2, x: 0.78, y: 0.30, radius: 33, description: "Background element (upper right)" },
@@ -142,7 +141,7 @@ export default function SpotTheDifference() {
       ctx.lineTo(clickX - size, clickY + size);
       ctx.stroke();
       
-      // หักเวลาเมื่อคลิกผิด (ไม่ให้เวลาติดลบ)
+      // หักเวลาเมื่อคลิกผิด
       setTimeLeft(prev => {
         const newTime = prev - 30;
         if (newTime <= 0) {
@@ -228,8 +227,6 @@ export default function SpotTheDifference() {
         textAlign: 'center'
       }}>
         
-
- 
         <div style={{
           display: 'flex',
           flexDirection: isMobile ? 'column' : 'row',
@@ -252,16 +249,17 @@ export default function SpotTheDifference() {
             Found: {foundDifferences.length}/3 differences
           </div>
         </div>
-                <div style={{
-          marginBottom: '20px'
-        }}>
+
+        {/* SAFE IMAGE CONTAINER - Name2.png */}
+        <div className="safe-image-container">
           <img
             src="/dimension/Name2.png"
             alt="Game Title"
-            style={{
-              maxWidth: isMobile ? '90%' : '400px',
-              height: 'auto',
-              borderRadius: '10px'
+            className="safe-image title-image"
+            onLoad={(e) => {
+              const img = e.target;
+              const naturalRatio = img.naturalWidth / img.naturalHeight;
+              img.style.aspectRatio = naturalRatio;
             }}
           />
         </div>
@@ -304,33 +302,74 @@ export default function SpotTheDifference() {
           )}
         </div>
 
-
-        <div style={{
-          marginTop: '30px',
-          display: 'flex',
-          justifyContent: 'center'
-        }}>
+        {/* SAFE IMAGE CONTAINER - warning.png */}
+        <div className="safe-image-container">
           <img
             src="/dimension/warning.png"
             alt="Warning"
+            className="safe-image warning-image"
+            onLoad={(e) => {
+              const img = e.target;
+              const naturalRatio = img.naturalWidth / img.naturalHeight;
+              img.style.aspectRatio = naturalRatio;
+            }}
             style={{
-              maxWidth: isMobile ? '90%' : '300px',
-              height: 'auto',
-              borderRadius: '8px',
               opacity: 0.8
             }}
           />
         </div>
 
-       
-
       </div>
 
       <style jsx>{`
+        /* CRITICAL: Safe image containers */
+        .safe-image-container {
+          width: 100%;
+          max-width: ${isMobile ? '90%' : '400px'};
+          margin: 20px auto;
+          text-align: center;
+          overflow: hidden;
+          position: relative;
+        }
+        
+        /* CRITICAL: Safe image styling */
+        .safe-image {
+          width: auto !important;
+          max-width: 100% !important;
+          height: auto !important;
+          object-fit: contain !important;
+          object-position: center !important;
+          display: block !important;
+          margin: 0 auto !important;
+          border-radius: 8px;
+        }
+        
+        .title-image {
+          max-width: ${isMobile ? '90%' : '400px'} !important;
+        }
+        
+        .warning-image {
+          max-width: ${isMobile ? '90%' : '300px'} !important;
+        }
+        
         @keyframes pulse {
           0% { transform: scale(1); }
           50% { transform: scale(1.05); }
           100% { transform: scale(1); }
+        }
+        
+        /* CRITICAL: Global image protection */
+        img {
+          max-width: 100% !important;
+          height: auto !important;
+          object-fit: contain !important;
+          object-position: center !important;
+          width: auto !important;
+        }
+        
+        /* Force containers to respect image dimensions */
+        div {
+          max-width: 100%;
         }
         
         @media (max-width: 768px) {
@@ -342,6 +381,17 @@ export default function SpotTheDifference() {
           body {
             padding: 0 !important;
             margin: 0 !important;
+          }
+          
+          .safe-image {
+            width: auto !important;
+            max-width: 100% !important;
+            height: auto !important;
+          }
+          
+          .safe-image-container {
+            max-width: 95% !important;
+            padding: 0 5px;
           }
         }
       `}</style>

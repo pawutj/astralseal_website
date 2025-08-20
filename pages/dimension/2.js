@@ -77,7 +77,7 @@ export default function Congratulations() {
           marginBottom: '30px'
         }}>
           <a
-            href="https://www.facebook.com"
+            href="https://www.facebook.com/AstralSeal2023"
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -112,7 +112,7 @@ export default function Congratulations() {
           </a>
           
           <a
-            href="https://store.steampowered.com"
+            href="https://store.steampowered.com/app/3930590/Dimension_Rift__Otaku_Save_The_World/"
             target="_blank"
             rel="noopener noreferrer"
             style={{
