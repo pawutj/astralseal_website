@@ -305,7 +305,7 @@ export default function SpotTheDifference() {
               padding: '20px',
               borderRadius: '8px',
               textAlign: 'center',
-              minWidth: isMobile ? '250px' : '300px'
+              minWidth: '300px'
             }}>
               <img
                 src="/dimension/fail.png"
