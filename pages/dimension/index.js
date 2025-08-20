@@ -311,7 +311,7 @@ export default function SpotTheDifference() {
                 src="/dimension/fail.png"
                 alt="Game Over"
                 style={{
-                  width: isMobile ? '200px' : '250px',
+                  width: '250px',
                   height: 'auto',
                   objectFit: 'contain',
                   objectPosition: 'center',
