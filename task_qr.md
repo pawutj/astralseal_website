@@ -1,4 +1,0 @@
-- implement url /qr to generate qr from url
-- has 1 input to get url 
-- output is generate qrcode from input url
-- has astralseal_logo.webp in center of generate qrcode

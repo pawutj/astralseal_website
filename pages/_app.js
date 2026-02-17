@@ -1,6 +1,5 @@
 import Script from "next/script";
 import Head from "next/head";
-import '../styles/image-fix.css';
 export default function MyApp({ Component, pageProps }) {
     return (
         <>

@@ -7,26 +7,6 @@
   align-items: center;
 }
 
-/* Image aspect ratio preservation */
-.container img {
-  max-width: 100% !important;
-  height: auto !important;
-  object-fit: contain !important;
-  object-position: center !important;
-}
-
-/* Next.js Image component specific */
-.container span {
-  max-width: 100% !important;
-}
-
-.container span img {
-  position: static !important;
-  width: 100% !important;
-  height: auto !important;
-  object-fit: contain !important;
-}
-
 .title a {
   color: #0070f3;
   text-decoration: none;
